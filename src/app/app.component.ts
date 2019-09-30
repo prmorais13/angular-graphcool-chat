@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   constructor(private http: HttpClient) {
+    this.createUser();
     this.allUsers();
   }
 
@@ -29,5 +30,28 @@ export class AppComponent {
     this.http
       .post(this.apiUrl, body)
       .subscribe(res => console.log('Query:', res));
+  }
+
+  createUser(): void {
+    const body = {
+      query: `
+        mutation createNewUser($name: String!, $email: String!, $password: String!) {
+          createUser(name: $name, email: $email, password: $password) {
+            id
+            name
+            email
+          }
+        }
+      `,
+      variables: {
+        name: 'Paulo Ricardo',
+        email: 'ricardo06@gmail.com',
+        password: 'Ricardo06'
+      }
+    };
+
+    this.http
+      .post(this.apiUrl, body)
+      .subscribe(res => console.log('Mutation: ', res));
   }
 }

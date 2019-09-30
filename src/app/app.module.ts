@@ -7,6 +7,7 @@ import { MatToolbarModule, MatListModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     HttpClientModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    GraphQLModule
   ],
   providers: [],
   bootstrap: [AppComponent]

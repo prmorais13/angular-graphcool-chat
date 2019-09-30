@@ -17,7 +17,7 @@ type Chat @model {
   createdAt: DateTime!
   updatedAt: DateTime!
   users: [User!]! @relation(name: "UserOnChats")
-  messages: [Message!]!  @relation(name: "MessagesOnChat")
+  messages: [Message!]! @relation(name: "MessagesOnChat")
   photo: File @relation(name: "ChatOnPhoto")
 }
 
@@ -38,5 +38,4 @@ type File @model {
   contentType: String
   user: User @relation(name: "UserOnPhoto")
   chat: Chat @relation(name: "ChatOnPhoto")
-}
 }

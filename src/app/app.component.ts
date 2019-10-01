@@ -52,25 +52,48 @@ export class AppComponent {
   }
 
   createUser(): void {
-    const body = {
-      query: `
-        mutation createNewUser($name: String!, $email: String!, $password: String!) {
-          createUser(name: $name, email: $email, password: $password) {
-            id
-            name
-            email
-          }
-        }
-      `,
-      variables: {
-        name: 'Paulo Ricardo',
-        email: 'ricardo06@gmail.com',
-        password: 'Ricardo06'
-      }
-    };
+    // const body = {
+    //   query: `
+    //     mutation createNewUser($name: String!, $email: String!, $password: String!) {
+    //       createUser(name: $name, email: $email, password: $password) {
+    //         id
+    //         name
+    //         email
+    //       }
+    //     }
+    //   `,
+    //   variables: {
+    //     name: 'Paulo Ricardo',
+    //     email: 'ricardo06@gmail.com',
+    //     password: 'Ricardo06'
+    //   }
+    // };
 
     // this.http
     //   .post(this.apiUrl, body)
-    //   .subscribe(res => console.log('Mutation: ', res));
+    //   .subscribe(res => console.log('Mutation com HttpClient: ', res));
+
+    this.apollo
+      .mutate({
+        mutation: gql`
+          mutation createNewUser(
+            $name: String!
+            $email: String!
+            $password: String!
+          ) {
+            createUser(name: $name, email: $email, password: $password) {
+              id
+              name
+              email
+            }
+          }
+        `,
+        variables: {
+          name: 'Ana Paula',
+          email: 'anapaula09@gmail.com',
+          password: 'Ana06'
+        }
+      })
+      .subscribe(res => console.log('Mutation com ApolloClient', res));
   }
 }

@@ -8,6 +8,7 @@ import { ApolloLink } from 'apollo-link';
 import { environment } from '../environments/environment';
 
 const uri = 'https://api.graph.cool/simple/v1/ck15oskbz4ffe0163llxtv8k7'; // <-- add the URL of the GraphQL server here
+
 const linkError = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.map(({ message, locations, path }) =>

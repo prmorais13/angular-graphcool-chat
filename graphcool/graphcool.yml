@@ -75,6 +75,16 @@ permissions:
     authenticated: true
   - operation: Message.delete
     authenticated: true
+
+  # File
+  - operation: File.read
+    authenticated: true
+  - operation: File.create
+    authenticated: true
+  - operation: File.update
+    authenticated: true
+  - operation: File.delete
+    authenticated: true
 # Your root tokens used for functions to get full access to the API
 # Read more here:
 # https://www.graph.cool/docs/reference/auth/authentication/authentication-tokens-eip7ahqu5o

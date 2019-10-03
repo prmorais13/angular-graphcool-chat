@@ -85,6 +85,29 @@ permissions:
     authenticated: true
   - operation: File.delete
     authenticated: true
+
+  # RElations
+
+  - operation: UserOnChats.connect
+    authenticated: true
+  - operation: UserOnChats.disconnect
+    authenticated: true
+
+  - operation: MessagesOnChat.connect
+    authenticated: true
+
+  - operation: MessagesOnUser.connect
+    authenticated: true
+
+  - operation: UserOnPhoto.connect
+    authenticated: true
+  - operation: UserOnPhoto.disconnect
+    authenticated: true
+
+  - operation: ChatOnPhoto.connect
+    authenticated: true
+  - operation: ChatOnPhoto.disconnect
+    authenticated: true
 # Your root tokens used for functions to get full access to the API
 # Read more here:
 # https://www.graph.cool/docs/reference/auth/authentication/authentication-tokens-eip7ahqu5o

@@ -8,6 +8,7 @@ import gql from 'graphql-tag';
   selector: 'app-root',
   template: `
     <p>App Component</p>
+    <app-login></app-login>
   `
   // templateUrl: './app.component.html',
   // styleUrls: ['./app.component.scss']

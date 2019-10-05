@@ -22,7 +22,14 @@
             placeholder="Senha"
           />
         </mat-form-field>
-        <button mat-button type="submit" color="primary">Login</button>
+        <button
+          [disabled]="loginForm.invalid"
+          mat-button
+          type="submit"
+          color="primary"
+        >
+          Login
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

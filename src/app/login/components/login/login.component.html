@@ -1,10 +1,25 @@
 <div class="login-container">
   <mat-card>
     <mat-card-title>
-      <mat-toolbar color="primary">Sign in</mat-toolbar>
+      <mat-toolbar color="primary">{{ configs.actionText }}</mat-toolbar>
     </mat-card-title>
     <mat-card-content>
       <form (submit)="onSubmit()" [formGroup]="loginForm">
+        <mat-form-field *ngIf="!configs.isLogin">
+          <input
+            formControlName="name"
+            matInput
+            type="text"
+            placeholder="Nome"
+          />
+          <mat-error *ngIf="name.hasError('required')">
+            Nome é obrigatório!
+          </mat-error>
+
+          <mat-error *ngIf="name.hasError('minlength')">
+            Nome deve ter no mínimo 6 caracteres!
+          </mat-error>
+        </mat-form-field>
         <mat-form-field>
           <input
             formControlName="email"
@@ -42,7 +57,15 @@
           type="submit"
           color="primary"
         >
-          Login
+          {{ configs.actionText }}
+        </button>
+        <button
+          type="button"
+          (click)="changeAction()"
+          mat-button
+          color="primary"
+        >
+          {{ configs.buttonActionText }}
         </button>
       </form>
     </mat-card-content>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {
   MatCardModule,
@@ -13,6 +14,7 @@ import {
   declarations: [],
   exports: [
     CommonModule,
+    ReactiveFormsModule,
     MatCardModule,
     MatToolbarModule,
     MatFormFieldModule,

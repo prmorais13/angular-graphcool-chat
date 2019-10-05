@@ -4,18 +4,26 @@
       <mat-toolbar color="primary">Sign in</mat-toolbar>
     </mat-card-title>
     <mat-card-content>
-      <form>
+      <form (submit)="onSubmit()" [formGroup]="loginForm">
         <mat-form-field>
-          <input matInput type="email" placeholder="Email" />
+          <input
+            formControlName="email"
+            matInput
+            type="email"
+            placeholder="Email"
+          />
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="password" placeholder="Senha" />
+          <input
+            formControlName="password"
+            matInput
+            type="password"
+            placeholder="Senha"
+          />
         </mat-form-field>
+        <button mat-button type="submit" color="primary">Login</button>
       </form>
     </mat-card-content>
-    <mat-card-actions align="start">
-      <button mat-button type="submit" color="primary">Login</button>
-    </mat-card-actions>
   </mat-card>
 </div>

@@ -6,6 +6,8 @@ import {
   FormControl
 } from '@angular/forms';
 
+import { AuthService } from '../../../core/services/auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,7 +27,7 @@ export class LoginComponent implements OnInit {
     buttonActionText: 'Criar login'
   };
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit() {
     this.createForm();

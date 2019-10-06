@@ -8,3 +8,16 @@ export const AUTHENTICATE_USER_MUTATION = gql`
     }
   }
 `;
+
+export const SIGNUP_USER_MUTATION = gql`
+  mutation SingupUserMutation(
+    $name: String!
+    $email: String!
+    $password: String!
+  ) {
+    signupUser(name: $name, email: $email, password: $password) {
+      id
+      token
+    }
+  }
+`;

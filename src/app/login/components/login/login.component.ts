@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 
 import { AuthService } from '../../../core/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -42,6 +43,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.loginForm.value);
+    const operation: Observable<{ id: string; token: string }> = this.configs
+      .isLogin
+      ? this.authService.signinUser(this.loginForm.value)
+      : this.authService.signupUser(this.loginForm.value);
+
+    operation.subscribe(res => {
+      console.log('Redirecionando... ', res);
+    });
   }
 
   get name(): FormControl {

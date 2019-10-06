@@ -25,7 +25,7 @@ export default async (event: FunctionEvent<EventData>) => {
     const { name, email, password } = event.data;
 
     if (!validator.isEmail(email)) {
-      return { error: 'Not a valid email' };
+      return { error: 'Email inválido.' };
     }
 
     // check if user exists already
@@ -33,7 +33,7 @@ export default async (event: FunctionEvent<EventData>) => {
       r => r.User !== null
     );
     if (userExists) {
-      return { error: 'Email already in use' };
+      return { error: 'Email já existe.' };
     }
 
     // create password hash
@@ -49,7 +49,7 @@ export default async (event: FunctionEvent<EventData>) => {
     return { data: { id: userId, token } };
   } catch (e) {
     console.log(e);
-    return { error: 'An unexpected error occured during signup.' };
+    return { error: 'Ocorreu um erro inesperado durante o Login.' };
   }
 };
 
@@ -66,7 +66,7 @@ async function getUser(api: GraphQLClient, email: string): Promise<{ User }> {
     email
   };
 
-  return api.request<{ User }>(query, variables);
+  return await api.request<{ User }>(query, variables);
 }
 
 async function createGraphcoolUser(
@@ -93,7 +93,7 @@ async function createGraphcoolUser(
     password
   };
 
-  return api
+  return await api
     .request<{ createUser: User }>(mutation, variables)
     .then(r => r.createUser.id);
 }

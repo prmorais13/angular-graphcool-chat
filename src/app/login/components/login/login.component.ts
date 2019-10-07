@@ -48,9 +48,13 @@ export class LoginComponent implements OnInit {
       ? this.authService.signinUser(this.loginForm.value)
       : this.authService.signupUser(this.loginForm.value);
 
-    operation.subscribe(res => {
-      console.log('Redirecionando... ', res);
-    });
+    operation.subscribe(
+      res => {
+        console.log('Redirecionando... ', res);
+      },
+      error => console.error('Ocorreu um erro inesperado,', error),
+      () => console.log('Observable completado.')
+    );
   }
 
   get name(): FormControl {

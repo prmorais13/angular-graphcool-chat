@@ -42,6 +42,6 @@ export class AuthService {
         mutation: SIGNUP_USER_MUTATION,
         variables
       })
-      .pipe(map((res: any) => res.data.singnupUser));
+      .pipe(map((res: any) => res.data.signupUser));
   }
 }

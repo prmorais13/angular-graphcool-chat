@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { ReactiveFormsModule } from '@angular/forms'
 
 import {
   MatCardModule,
@@ -8,8 +8,9 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatButtonModule,
-  MatSnackBarModule
-} from '@angular/material';
+  MatSnackBarModule,
+  MatProgressSpinnerModule
+} from '@angular/material'
 
 @NgModule({
   declarations: [],
@@ -21,7 +22,8 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule {}

@@ -6,6 +6,8 @@ import {
   FormControl
 } from '@angular/forms';
 
+import { MatSnackBar } from '@angular/material';
+
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../../../core/services/auth.service';
@@ -33,7 +35,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -58,7 +61,13 @@ export class LoginComponent implements OnInit {
       res => {
         console.log('Redirecionando... ', res);
       },
-      error => console.error(this.errorService.getErrorMessage(error)),
+      error => {
+        console.error(error),
+          this.snackBar.open(this.errorService.getErrorMessage(error), 'Done', {
+            duration: 3000,
+            verticalPosition: 'top'
+          });
+      },
       () => console.log('Observable completado.')
     );
   }

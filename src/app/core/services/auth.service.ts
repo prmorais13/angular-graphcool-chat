@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Apollo } from 'apollo-angular'
 import { Observable, ReplaySubject } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { map, tap } from 'rxjs/operators'
 
 import {
   AUTHENTICATE_USER_MUTATION,
@@ -12,7 +12,9 @@ import {
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo) {
+    this.isAuthenticated$.subscribe(is => console.log('AuthState:', is))
+  }
 
   /*
   Subject
@@ -34,7 +36,10 @@ export class AuthService {
         mutation: AUTHENTICATE_USER_MUTATION,
         variables
       })
-      .pipe(map((res: any) => res.data.authenticateUser))
+      .pipe(
+        map((res: any) => res.data.authenticateUser),
+        tap(res => this.setAuthState(res !== null))
+      )
   }
 
   signupUser(variables: {
@@ -47,6 +52,13 @@ export class AuthService {
         mutation: SIGNUP_USER_MUTATION,
         variables
       })
-      .pipe(map((res: any) => res.data.signupUser))
+      .pipe(
+        map((res: any) => res.data.signupUser),
+        tap(res => this.setAuthState(res !== null))
+      )
+  }
+
+  private setAuthState(isAutehnticated: boolean): void {
+    this._isAuthenticated.next(isAutehnticated)
   }
 }

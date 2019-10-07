@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 // import { HttpClient } from '@angular/common/http';
 
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
+import { Apollo } from 'apollo-angular'
+import gql from 'graphql-tag'
 
 @Component({
   selector: 'app-root',
   template: `
-    <app-login></app-login>
+    <router-outlet></router-outlet>
   `
   // templateUrl: './app.component.html',
   // styleUrls: ['./app.component.scss']

@@ -28,13 +28,13 @@ export default async (event: FunctionEvent<EventData>) => {
 
     // no user with this email
     if (!user) {
-      return { error: 'Invalid credentials!' };
+      return { error: 'Email ou Senha inválidos!' };
     }
 
     // check password
     const passwordIsCorrect = await bcrypt.compare(password, user.password);
     if (!passwordIsCorrect) {
-      return { error: 'Invalid credentials!' };
+      return { error: 'Email ou Senha inválidos!' };
     }
 
     // generate node token for existing User node
@@ -43,7 +43,7 @@ export default async (event: FunctionEvent<EventData>) => {
     return { data: { id: user.id, token } };
   } catch (e) {
     console.log(e);
-    return { error: 'An unexpected error occured during authentication.' };
+    return { error: 'Aconteceu um erro inesperado durante autenticação.' };
   }
 };
 

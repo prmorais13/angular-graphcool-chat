@@ -6,8 +6,10 @@ import {
   FormControl
 } from '@angular/forms';
 
-import { AuthService } from '../../../core/services/auth.service';
 import { Observable } from 'rxjs';
+
+import { AuthService } from '../../../core/services/auth.service';
+import { ErrorService } from '../../../core/services/error.service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +30,11 @@ export class LoginComponent implements OnInit {
     buttonActionText: 'Criar login'
   };
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private errorService: ErrorService
+  ) {}
 
   ngOnInit() {
     this.createForm();
@@ -52,7 +58,7 @@ export class LoginComponent implements OnInit {
       res => {
         console.log('Redirecionando... ', res);
       },
-      error => console.error('Ocorreu um erro inesperado,', error),
+      error => console.error(this.errorService.getErrorMessage(error)),
       () => console.log('Observable completado.')
     );
   }

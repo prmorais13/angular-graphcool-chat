@@ -26,7 +26,7 @@ const linkError = onError(({ graphQLErrors, networkError }) => {
 export function createApollo(httpLink: HttpLink) {
   return {
     // link: httpLink.create({ uri }),
-    link: ApolloLink.from([httpLink.create({ uri }), linkError]),
+    link: ApolloLink.from([linkError, httpLink.create({ uri })]),
     cache: new InMemoryCache(),
     connectToDevTools: !environment.production
   };

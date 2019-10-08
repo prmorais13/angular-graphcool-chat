@@ -59,6 +59,14 @@
             Senha deve ter no mínimo 6 caracteres!
           </mat-error>
         </mat-form-field>
+
+        <mat-slide-toggle
+          color="primary"
+          [checked]="authService.keepSigned"
+          (change)="onKeepSigned()"
+          >Mantenha-me conectado</mat-slide-toggle
+        >
+
         <button
           [disabled]="loginForm.invalid"
           mat-button

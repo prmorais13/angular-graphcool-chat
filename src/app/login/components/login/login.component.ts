@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    public authService: AuthService,
     private errorService: ErrorService,
     private snackBar: MatSnackBar
   ) {}
@@ -103,5 +103,9 @@ export class LoginComponent implements OnInit {
     !this.configs.isLogin
       ? this.loginForm.addControl('name', this.nameControl)
       : this.loginForm.removeControl('name');
+  }
+
+  onKeepSigned(): void {
+    this.authService.toogleKeepSigned();
   }
 }

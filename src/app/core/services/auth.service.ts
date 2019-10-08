@@ -16,10 +16,6 @@ export class AuthService {
   constructor(private apollo: Apollo) {
     this.isAuthenticated$.subscribe(is => console.log('AuthState:', is));
     this.init();
-
-    console.log('Keep', this.keepSigned);
-    this.toogleKeepSigned();
-    console.log('Keep', this.keepSigned);
   }
   /*
   Subject

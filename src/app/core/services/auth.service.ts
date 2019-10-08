@@ -15,8 +15,12 @@ import {
 export class AuthService {
   constructor(private apollo: Apollo) {
     this.isAuthenticated$.subscribe(is => console.log('AuthState:', is));
-  }
+    this.init();
 
+    console.log('Keep', this.keepSigned);
+    this.toogleKeepSigned();
+    console.log('Keep', this.keepSigned);
+  }
   /*
   Subject
   BehaviorSubject
@@ -24,8 +28,14 @@ export class AuthService {
   */
 
   redirectUrl: string;
+  keepSigned: boolean;
   private _isAuthenticated = new ReplaySubject<boolean>(1);
 
+  init(): void {
+    this.keepSigned = JSON.parse(
+      window.localStorage.getItem(StorageKeys.KEEP_SIGNED)
+    );
+  }
   get isAuthenticated$(): Observable<boolean> {
     return this._isAuthenticated.asObservable();
   }
@@ -77,6 +87,14 @@ export class AuthService {
           return throwError(error);
         })
       );
+  }
+
+  toogleKeepSigned(): void {
+    this.keepSigned = !this.keepSigned;
+    window.localStorage.setItem(
+      StorageKeys.KEEP_SIGNED,
+      this.keepSigned.toString()
+    );
   }
 
   private setAuthState(authData: {

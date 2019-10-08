@@ -22,6 +22,7 @@ export class AuthService {
   ReplaySubject
   */
 
+  redirectUrl: string;
   private _isAuthenticated = new ReplaySubject<boolean>(1);
 
   get isAuthenticated$(): Observable<boolean> {

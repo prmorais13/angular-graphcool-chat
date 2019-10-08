@@ -53,7 +53,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.loginForm.value);
+
     this.configs.isLoading = true;
+
     const operation: Observable<{ id: string; token: string }> = this.configs
       .isLogin
       ? this.authService.signinUser(this.loginForm.value)
@@ -62,6 +64,10 @@ export class LoginComponent implements OnInit {
     operation.subscribe(
       res => {
         console.log('Redirecionando... ', res);
+        const reditect = this.authService.redirectUrl || '/dashboard';
+        console.log('Route to redirect... ', reditect);
+
+        this.authService.redirectUrl = null;
         this.configs.isLoading = false;
       },
       error => {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable, ReplaySubject, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
+import { StorageKeys } from '../../storage-keys';
 
 import {
   AUTHENTICATE_USER_MUTATION,
@@ -40,9 +41,14 @@ export class AuthService {
       })
       .pipe(
         map((res: any) => res.data.authenticateUser),
-        tap(res => this.setAuthState(res !== null)),
+        tap(res =>
+          this.setAuthState({
+            token: res && res.token,
+            isAuthenticated: res !== null
+          })
+        ),
         catchError(error => {
-          this.setAuthState(false);
+          this.setAuthState({ token: null, isAuthenticated: false });
           return throwError(error);
         })
       );
@@ -60,15 +66,26 @@ export class AuthService {
       })
       .pipe(
         map((res: any) => res.data.signupUser),
-        tap(res => this.setAuthState(res !== null)),
+        tap(res =>
+          this.setAuthState({
+            token: res && res.token,
+            isAuthenticated: res !== null
+          })
+        ),
         catchError(error => {
-          this.setAuthState(false);
+          this.setAuthState({ token: null, isAuthenticated: false });
           return throwError(error);
         })
       );
   }
 
-  private setAuthState(isAutehnticated: boolean): void {
-    this._isAuthenticated.next(isAutehnticated);
+  private setAuthState(authData: {
+    token: string;
+    isAuthenticated: boolean;
+  }): void {
+    if (authData.isAuthenticated) {
+      window.localStorage.setItem(StorageKeys.AUTH_TOKEN, authData.token);
+    }
+    this._isAuthenticated.next(authData.isAuthenticated);
   }
 }

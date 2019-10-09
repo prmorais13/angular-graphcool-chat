@@ -10,7 +10,7 @@ import { ApolloLink } from 'apollo-link'
 import { environment } from '../environments/environment'
 import { StorageKeys } from './storage-keys'
 
-const uri = 'ddddd' // <-- add the URL of the GraphQL server here
+const uri = 'https://api.graph.cool/simple/v1/ck15oskbz4ffe0163llxtv8k7' // <-- add the URL of the GraphQL server here
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   const token = window.localStorage.getItem(StorageKeys.AUTH_TOKEN)

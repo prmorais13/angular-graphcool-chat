@@ -20,6 +20,10 @@ export class AuthService {
   constructor(private apollo: Apollo) {
     this.isAuthenticated$.subscribe(is => console.log('AuthState:', is));
     this.init();
+    this.validateToken().subscribe(
+      res => console.log('Res: ', res),
+      err => console.error('Err: ', err)
+    );
   }
   /*
   Subject

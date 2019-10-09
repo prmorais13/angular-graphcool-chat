@@ -15,7 +15,7 @@ interface EventData {
 const SALT_ROUNDS = 10;
 
 export default async (event: FunctionEvent<EventData>) => {
-  console.log(event);
+  // console.log(event);
 
   try {
     const graphcool: Graphcool = fromEvent<EventData>(event);
@@ -42,7 +42,7 @@ export default async (event: FunctionEvent<EventData>) => {
 
     return { data: { id: user.id, token } };
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     return { error: 'Aconteceu um erro inesperado durante autenticação.' };
   }
 };

@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
+
 import { Observable, ReplaySubject, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
+
 import { StorageKeys } from '../../storage-keys';
 
 import {
   AUTHENTICATE_USER_MUTATION,
-  SIGNUP_USER_MUTATION
+  SIGNUP_USER_MUTATION,
+  LOGGED_IN_USER_QUERY,
+  LoggedInUserQuery
 } from './auth.graphql';
 
 @Injectable({
@@ -91,6 +95,25 @@ export class AuthService {
       StorageKeys.KEEP_SIGNED,
       this.keepSigned.toString()
     );
+  }
+
+  private validateToken(): Observable<{
+    id: string;
+    isAuthenticated: boolean;
+  }> {
+    return this.apollo
+      .query<LoggedInUserQuery>({
+        query: LOGGED_IN_USER_QUERY
+      })
+      .pipe(
+        map(res => {
+          const user = res.data.loggedInUser;
+          return {
+            id: user && user.id,
+            isAuthenticated: user !== null
+          };
+        })
+      );
   }
 
   private setAuthState(authData: {

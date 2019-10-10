@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
+import { Base64 } from 'js-base64';
 
 import { Observable, ReplaySubject, throwError, of } from 'rxjs';
 import { map, tap, catchError, mergeMap } from 'rxjs/operators';
@@ -30,11 +31,15 @@ export class AuthService {
 
   redirectUrl: string;
   keepSigned: boolean;
+  rememberMe: boolean;
   private _isAuthenticated = new ReplaySubject<boolean>(1);
 
   init(): void {
     this.keepSigned = JSON.parse(
       window.localStorage.getItem(StorageKeys.KEEP_SIGNED)
+    );
+    this.rememberMe = JSON.parse(
+      window.localStorage.getItem(StorageKeys.REMEMBER_ME)
     );
   }
 
@@ -97,6 +102,44 @@ export class AuthService {
       StorageKeys.KEEP_SIGNED,
       this.keepSigned.toString()
     );
+  }
+
+  toogleRememberMe(): void {
+    this.rememberMe = !this.rememberMe;
+    window.localStorage.setItem(
+      StorageKeys.REMEMBER_ME,
+      this.rememberMe.toString()
+    );
+
+    if (!this.rememberMe) {
+      window.localStorage.removeItem(StorageKeys.USER_EMAIL);
+      window.localStorage.removeItem(StorageKeys.USER_PASSWORD);
+    }
+  }
+
+  getRememberMe(): { email: string; password: string } {
+    if (!this.rememberMe) {
+      return null;
+    }
+    return {
+      email: Base64.decode(window.localStorage.getItem(StorageKeys.USER_EMAIL)),
+      password: Base64.decode(
+        window.localStorage.getItem(StorageKeys.USER_PASSWORD)
+      )
+    };
+  }
+
+  setRememberMe(user: { email: string; password: string }) {
+    if (this.rememberMe) {
+      window.localStorage.setItem(
+        StorageKeys.USER_EMAIL,
+        Base64.encode(user.email)
+      );
+      window.localStorage.setItem(
+        StorageKeys.USER_PASSWORD,
+        Base64.encode(user.password)
+      );
+    }
   }
 
   logout() {

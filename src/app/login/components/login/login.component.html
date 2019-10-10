@@ -66,6 +66,12 @@
           (change)="onKeepSigned()"
           >Mantenha-me conectado</mat-slide-toggle
         >
+        <mat-slide-toggle
+          color="primary"
+          [checked]="authService.rememberMe"
+          (change)="onRememberMe()"
+          >Lembrar credenciais</mat-slide-toggle
+        >
 
         <button
           [disabled]="loginForm.invalid"

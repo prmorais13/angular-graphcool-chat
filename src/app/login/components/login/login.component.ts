@@ -42,6 +42,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+
+    const userData = this.authService.getRememberMe();
+    if (userData) {
+      this.email.setValue(userData.email);
+      this.password.setValue(userData.password);
+    }
   }
 
   createForm() {
@@ -64,6 +70,7 @@ export class LoginComponent implements OnInit {
     operation.subscribe(
       res => {
         console.log('Redirecionando... ', res);
+        this.authService.setRememberMe(this.loginForm.value);
         const reditect = this.authService.redirectUrl || '/dashboard';
         console.log('Route to redirect... ', reditect);
 
@@ -107,5 +114,8 @@ export class LoginComponent implements OnInit {
 
   onKeepSigned(): void {
     this.authService.toogleKeepSigned();
+  }
+  onRememberMe() {
+    this.authService.toogleRememberMe();
   }
 }
